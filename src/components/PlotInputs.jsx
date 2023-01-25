@@ -10,8 +10,8 @@ export default function UserInputs() {
 	const dispatch = useDispatch()
 	const calculateBuiltUp = () => {
 		const { top, bottom, left, right } = setBackValues
-		const length = plotLength - left - right
-		const breadth = plotBreadth - top - bottom
+		const length = (parseFloat(plotLength) - parseFloat(left) - parseFloat(right)).toFixed(2)
+		const breadth = (parseFloat(plotBreadth) - parseFloat(top) - parseFloat(bottom)).toFixed(2)
 		dispatch(setBuiltup({ length, breadth }))
 	}
 	useEffect(() => {
@@ -19,15 +19,23 @@ export default function UserInputs() {
 		dispatch(setScale({ scale: scaleValue }))
 		dispatch(setSetBacks(setBackValues))
 		calculateBuiltUp()
-	}, [plotLength, plotBreadth, setBackValues, scaleValue])
-
+	}, [plotLength, plotBreadth])
+	useEffect(() => {
+		dispatch(setSetBacks(setBackValues))
+		calculateBuiltUp()
+	}, [setBackValues])
+	useEffect(() => {
+		dispatch(setScale({ scale: scaleValue }))
+	}, [scaleValue])
 	return (
-		<>
-			<div className='flex items-center px-6 w-full gap-2'>
+		<div className='flex flex-col w-full my-2 border-2 p-3 inset-3 rounded-lg shadow-xl bg-gray-800'>
+			<div className='flex items-center  w-full gap-2'>
 				<div className='font-semibold '>Plot: </div>
-				<InputNumber placeholder='Length (ft)' onChange={(value) => setPlotLength(value)} />
+				<InputNumber placeholder='Length (ft)' onChange={(value) => setPlotLength(value)} className='' />
 				X
 				<InputNumber placeholder='Breadth (ft)' onChange={(value) => setPlotBreadth(value)} />
+			</div>
+			<div className='flex items-center  w-full gap-2 mt-3'>
 				<div className='font-semibold '>Scale: </div>
 				<InputNumber
 					className='w-[50px]'
@@ -37,29 +45,29 @@ export default function UserInputs() {
 				/>
 			</div>
 
-			<div className='flex items-center px-6 w-full gap-2 mt-3'>
+			<div className='flex items-center  w-full gap-2 mt-3'>
 				<div className='font-semibold '>Offsets: </div>
+				<InputNumber
+					placeholder='Bottom (ft)'
+					defaultValue={setBackValues.bottom}
+					onChange={(value) => setSetBackValues({ ...setBackValues, bottom: value })}
+				/>
 				<InputNumber
 					placeholder='Top (ft)'
 					defaultValue={setBackValues.top}
 					onChange={(value) => setSetBackValues({ ...setBackValues, top: value })}
 				/>
 				<InputNumber
-					placeholder='Bottom (ft)'
-					defaultValue={setBackValues.bottom}
-					onChange={(value) => setPlotBreadth(value)}
-				/>
-				<InputNumber
 					placeholder='Left (ft)'
 					defaultValue={setBackValues.left}
-					onChange={(value) => setPlotBreadth(value)}
+					onChange={(value) => setSetBackValues({ ...setBackValues, left: value })}
 				/>
 				<InputNumber
 					placeholder='Right (ft)'
 					defaultValue={setBackValues.right}
-					onChange={(value) => setPlotBreadth(value)}
+					onChange={(value) => setSetBackValues({ ...setBackValues, right: value })}
 				/>
 			</div>
-		</>
+		</div>
 	)
 }

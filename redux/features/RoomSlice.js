@@ -2,17 +2,17 @@ import { createSlice } from '@reduxjs/toolkit'
 const initialState = {
 	type: '2BHK',
 	facing: 'SOUTH',
-	scale: 0,
+	scale: 20,
 	plot: {
 		plotLength: 0,
 		plotBreadth: 0,
 		area: 0,
 	},
 	setbacks: {
-		left: 0,
-		right: 0,
-		top: 0,
-		bottom: 0,
+		left: 1.6,
+		right: 1.6,
+		top: 1.6,
+		bottom: 4.6,
 	},
 	built: {
 		length: 0,
@@ -351,8 +351,8 @@ const initialState = {
 	},
 	commonToilet: {
 		included: false,
-		length: 0,
-		breadth: 0,
+		length: 5,
+		breadth: 7,
 		area: 0,
 		position: {
 			top: undefined,
@@ -661,8 +661,15 @@ const roomSlice = createSlice({
 			if (state.built.length < 0 || state.built.breadth < 0) state.built.area = 0
 			else state.built.area = parseFloat(action.payload.length * action.payload.breadth).toFixed(2)
 		},
-		setRoomData: (state, action) => {},
+		setRoomData: (state, action) => {
+			const { room, data } = action.payload
+			state[`${room}`] = data
+		},
+		updateRoom: (state, action) => {
+			const { room, data } = action.payload
+			state[`${room}`] = { ...state[`${room}`], ...data }
+		},
 	},
 })
-export const { setPlotDimensions, setScale, setSetBacks, setBuiltup } = roomSlice.actions
+export const { setPlotDimensions, setScale, setSetBacks, setBuiltup, setRoomData, updateRoom } = roomSlice.actions
 export default roomSlice.reducer
