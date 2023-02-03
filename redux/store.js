@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
-import roomReducer from './features/RoomSlice'
+import plotReducer from './features/Plot'
+import roomReducer from './features/Rooms'
 export const store = configureStore({
-	reducer: { room: roomReducer },
+  reducer: { plot: plotReducer, rooms: roomReducer }
 })

@@ -1,26 +1,34 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import Builtup from './Builtup'
+import { setScaleValue } from '../../redux/features/Plot'
 
 export default function Plot() {
-	const { plot, scale } = useSelector((state) => state.room)
-	const [style, setStyle] = useState({})
-	useEffect(() => {
-		const currStyle = {
-			width: Math.ceil(parseFloat(plot.plotLength) * parseFloat(scale)),
-			height: Math.ceil(parseFloat(plot.plotBreadth) * parseFloat(scale)),
-		}
-		setStyle(currStyle)
-	}, [scale, plot])
-	return (
-		<>
-			{!(plot.plotLength > 0 && plot.plotBreadth > 0) ? (
-				<div className='flex items-center justify-center'>Enter the plot dimensions to render plot</div>
-			) : (
-				<div className='bg-black relative' style={style}>
-					<Builtup />
-				</div>
-			)}
-		</>
-	)
+  const [style, setStyle] = useState({ width: 0, height: 0 })
+  const { length, breadth, scale } = useSelector((state) => state.plot)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    const width = parseInt(window.innerWidth) - 380
+    const height = window.innerHeight
+
+    dispatch(setScaleValue({ l: parseInt(width / length), b: parseInt(height / breadth) }))
+  }, [length, breadth])
+
+  useEffect(() => {
+    makeStyle()
+  }, [length, breadth, scale])
+
+  const makeStyle = () => {
+    const currStyle = {}
+    currStyle['width'] = parseInt(length) * parseInt(scale.l)
+    currStyle['height'] = parseInt(breadth) * parseInt(scale.b)
+    setStyle(currStyle)
+  }
+
+  return (
+    <div style={style} className='bg-green-500 relative'>
+      <Builtup />
+    </div>
+  )
 }
