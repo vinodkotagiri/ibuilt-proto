@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
+  selectedRoom: null,
   bedrooms: [
     {
       id: 0,
@@ -198,8 +199,12 @@ const roomsSlice = createSlice({
     setBedroomData: (state, action) => {
       const { id, data } = action.payload
       state.bedrooms[id] = data
+    },
+    setSelectedRoom: (state, action) => {
+      const { id } = action.payload
+      state.selectedRoom = state.bedrooms[id]
     }
   }
 })
-export const { setBedroomData } = roomsSlice.actions
+export const { setBedroomData, setSelectedRoom } = roomsSlice.actions
 export default roomsSlice.reducer

@@ -17,7 +17,7 @@ export default function Builtup() {
     setStyle(currStyle)
   }
   return (
-    <div className='bg-yellow-500 absolute' style={style}>
+    <div className='bg-gray-500 absolute' style={style}>
       <div className='flex'>
         <Bedroom id={0} />
         <Bedroom id={1} />

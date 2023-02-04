@@ -19,7 +19,7 @@ export default function PlotInputs() {
     dispatch(setBuiltUp({ length: builtLength, breadth: builtBreadth }))
   }, [plotDim, top, left, right, bottom])
   return (
-    <div className='flex gap-3 mt-6 px-3'>
+    <div className='flex gap-3 mt-6'>
       <Input
         type='number'
         name='length'

@@ -9,8 +9,8 @@ export default function Plot() {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    const width = parseInt(window.innerWidth) - 380
-    const height = window.innerHeight
+    const width = 0.8 * (parseInt(window.innerWidth) - 380)
+    const height = 0.8 * window.innerHeight
 
     dispatch(setScaleValue({ l: parseInt(width / length), b: parseInt(height / breadth) }))
   }, [length, breadth])
@@ -27,7 +27,7 @@ export default function Plot() {
   }
 
   return (
-    <div style={style} className='bg-green-500 relative'>
+    <div style={style} className='bg-white relative'>
       <Builtup />
     </div>
   )

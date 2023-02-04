@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 import Wall from '../Wall'
 export default function Bedroom({ id }) {
+  const ref = useRef(null)
   const { bedrooms } = useSelector((state) => state.rooms)
   const [room, setRoom] = useState(bedrooms[id])
   const { scale } = useSelector((state) => state.plot)
@@ -20,8 +21,9 @@ export default function Bedroom({ id }) {
     else currStyle['right'] = parseInt(room.position.right)
     setStyle(currStyle)
   }
+  const handleSelection = () => {}
   return (
-    <div className='bg-orange-500 absolute' style={style}>
+    <div className='bg-orange-500 absolute' style={style} ref={ref} onClick={handleSelection}>
       {/* LEFT WALL */}
       <Wall
         length={room.walls.left.length}
