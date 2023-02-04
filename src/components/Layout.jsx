@@ -1,11 +1,14 @@
 import React from 'react'
 import Sider from './Sider'
+import Plot from './Plot'
 
-export default function Layout({ children }) {
-	return (
-    <div className='flex w-screen h-screen bg-slate-800 '>
+export default function Layout() {
+  return (
+    <div className='flex h-screen w-screen'>
       <Sider />
-      <main className='w-[calc(100%-380px)] flex items-center justify-center p-3'>{children}</main>
+      <div className='flex items-center justify-center w-full'>
+        <Plot />
+      </div>
     </div>
   )
 }

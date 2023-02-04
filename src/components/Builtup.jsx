@@ -1,27 +1,24 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import Bedroom from './rooms/Bedroom'
+import Quadrant from './Quadrant'
 
 export default function Builtup() {
-  const { scale, setbacks, built, length, breadth } = useSelector((state) => state.plot)
+  const { builtLength, builtBreadth, scale, setbacks } = useSelector((state) => state.plot)
+  let { back, left } = setbacks
   const [style, setStyle] = useState({})
+  const makeStyle = () => {
+    const width = Math.floor(builtLength * scale)
+    const height = Math.floor(builtBreadth * scale)
+    const top = Math.floor(back * scale)
+    left = Math.floor(left * scale)
+    setStyle({ width, height, top, left })
+  }
   useEffect(() => {
     makeStyle()
-  }, [length, breadth, scale])
-  const makeStyle = () => {
-    const currStyle = {}
-    currStyle['width'] = parseInt(built.length) * parseInt(scale.l)
-    currStyle['height'] = parseInt(built.breadth) * parseInt(scale.b)
-    currStyle['top'] = parseInt(setbacks.top) * parseInt(scale.b)
-    currStyle['left'] = parseInt(setbacks.left) * parseInt(scale.l)
-    setStyle(currStyle)
-  }
+  }, [builtLength, builtBreadth, scale, setbacks])
   return (
-    <div className='bg-gray-500 absolute' style={style}>
-      <div className='flex'>
-        <Bedroom id={0} />
-        <Bedroom id={1} />
-      </div>
+    <div className='bg-red-400 absolute' style={style}>
+      <Quadrant id={1} />
     </div>
   )
 }

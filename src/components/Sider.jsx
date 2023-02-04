@@ -1,13 +1,14 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import PlotInputs from './PlotInputs'
-import Controls from './Controls'
-import BHKSelection from './BHKSelection'
+import RoomControls from './RoomControls'
+import { useSelector } from 'react-redux'
 export default function Sider() {
+  const { selectedRoom } = useSelector((state) => state.common)
+  const [hidden, setHidden] = useState(true)
   return (
-    <div className='w-[380px] flex flex-col text-gray-200 gap-3 px-3'>
-      <PlotInputs />
-      <BHKSelection />
-      <Controls />
+    <div className='w-[18%] bg-slate-900 px-3 py-6 text-slate-200'>
+      {hidden ? <PlotInputs /> : <div>+</div>}
+      {selectedRoom && <RoomControls />}
     </div>
   )
 }
