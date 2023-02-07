@@ -26,7 +26,7 @@ export default function Quadrant({ id }) {
   }, [quadrantDimensions, id, scale, builtLength, builtBreadth])
   return (
     <div className='bg-amber-400 absolute border-2' style={style}>
-      <Bedroom id={1} />
+      <Bedroom id={id} />
     </div>
   )
 }

@@ -2,11 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { updateSelectedRoom } from '../../redux/common'
 import Wall from './Wall'
-import Toilet from './Toilet'
 
-export default function Bedroom({ id }) {
+export default function Toilet({ id }) {
   const [selectedRoom, setSelectedRoom] = useState(null)
-  const { bedrooms } = useSelector((state) => state.rooms)
+  const { toilets } = useSelector((state) => state.rooms)
   const { scale } = useSelector((state) => state.plot)
   const [style, setStyle] = useState({})
   const dispatch = useDispatch()
@@ -20,17 +19,20 @@ export default function Bedroom({ id }) {
   }
   useEffect(() => {
     setSelectedRoom(
-      bedrooms.find((room) => room.id === id),
+      toilets.find((room) => room.id === id),
       makeStyle()
     )
-  }, [id, selectedRoom, bedrooms])
+  }, [id, selectedRoom, toilets])
   const handleClick = (e) => {
     e.stopPropagation()
-    dispatch(updateSelectedRoom({ room: 'bedrooms', data: selectedRoom }))
+    dispatch(updateSelectedRoom({ room: 'toilets', data: selectedRoom }))
   }
   console.log(selectedRoom)
   return (
-    <div className='bg-white cursor-pointer absolute flex items-center justify-end' onClick={handleClick} style={style}>
+    <div
+      className='bg-white cursor-pointer absolute flex items-center justify-center '
+      onClick={handleClick}
+      style={style}>
       {selectedRoom?.walls.map((wall) => (
         <Wall
           key={selectedRoom.id}
@@ -42,8 +44,7 @@ export default function Bedroom({ id }) {
           doorPosition={wall.doorPosition}
         />
       ))}
-      {selectedRoom?.toiletRequired ? <Toilet id={1} /> : null}
-      <span className='text-xs m-6'>
+      <span className='text-xs mr-6'>
         {selectedRoom?.length}
         <sup className=''></sup> X {selectedRoom?.breadth} ft
       </span>

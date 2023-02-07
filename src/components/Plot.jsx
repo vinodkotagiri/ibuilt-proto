@@ -2,9 +2,11 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Builtup from './Builtup'
 import { updatePositions } from '../../redux/common'
+
 export default function Plot() {
   const { plotLength, plotBreadth, scale } = useSelector((state) => state.plot)
   const [style, setStyle] = useState({})
+
   const dispatch = useDispatch()
   const makeStyle = () => {
     const width = Math.ceil(plotLength * scale)
@@ -23,6 +25,7 @@ export default function Plot() {
     }
     dispatch(updatePositions({ x, y }))
   }, [plotLength, plotBreadth, scale])
+
   return (
     <div className='w-[82%] bg-red-300 relative' style={style}>
       <Builtup />
