@@ -3,6 +3,7 @@ import Plot from './Plot'
 import Loader from './Loader'
 import { useSelector } from 'react-redux'
 import Builtup from './Builtup'
+import PlotInputs from './PlotInputs'
 export default function Drawing() {
   const { plotLength, plotBreadth } = useSelector((state) => state.plot)
   const [loading, setLoading] = useState(false)
