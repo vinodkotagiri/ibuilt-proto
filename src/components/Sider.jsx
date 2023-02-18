@@ -1,8 +1,11 @@
-import React, { useEffect, useState } from 'react'
-import PlotInputs from './PlotInputs'
-import RoomControls from './RoomControls'
-import { useSelector } from 'react-redux'
+import React from 'react'
+import RoomControl from './RoomControl'
+
 export default function Sider() {
-  const { selectedRoom } = useSelector((state) => state.common)
-  return <div className='w-[18%] bg-slate-900 px-3 py-6 text-slate-200'>{selectedRoom && <RoomControls />}</div>
+  return (
+    <aside className='w-[360px] h-full bg-slate-100 p-3'>
+      {/* ROOM CONTROLS */}
+      <RoomControl />
+    </aside>
+  )
 }
